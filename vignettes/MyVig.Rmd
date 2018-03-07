@@ -1,0 +1,74 @@
+---
+title: "My Package Vignette"
+author: "Ankitha Varadhan"
+date: "March 7 2018"
+output: rmarkdown::html_vignette
+vignette: >
+  %\VignetteIndexEntry{Vignette Title}
+  %\VignetteEngine{knitr::rmarkdown}
+  %\VignetteEncoding{UTF-8}
+---
+
+##GGPlots Examples
+Plotting alaskaAirlinesFlights in 3 different ways using GGPlot
+```{r,fig.show='hold'}
+library(VaradhanAnkithaTools)
+library(ggplot2)
+alaskaAirlinesFlights<- read.csv("http://users.stat.umn.edu/~almquist/3811_examples/all_alaska_flights.csv")
+ggplot2::ggplot(data = alaskaAirlinesFlights, mapping = aes(x = dep_delay, y = arr_delay)) + 
+  geom_boxplot()
+
+ggplot2::ggplot(data = alaskaAirlinesFlights, mapping = aes(x = dep_delay, y = arr_delay)) + 
+  geom_point()
+
+ggplot2::ggplot(data = alaskaAirlinesFlights, mapping = aes(x = dep_delay, y = arr_delay)) + 
+  geom_jitter()
+
+```
+
+## Examples of the Functions
+By calling func1 and func2 using a given data set, the result will return a list containing the mean, variance and standard deviation. Func2 will compute the same results but additionally check the data to make sure that all the data is viable under the given contraints. 
+```{r}
+library(VaradhanAnkithaTools)
+d<-read.table(url("http://www.stat.umn.edu/geyer/3701/data/q1p4.txt"),header = TRUE)
+func1(d)
+
+```
+Func3 will compute the Maximum LIklihood Estimation of a gamma distribution and in result will return a scalar vector from the given vector. 
+```{r}
+library(VaradhanAnkithaTools)
+vector<- (1:20)
+func3(vector)
+```
+Different than func1 and func2, func4 and func5 will compute the WEIGHTED mean, variance and standard deviation and will return the results in a list. Func5 will make sure that the data is viable to the given contraints.
+```{r}
+library(VaradhanAnkithaTools)
+d<-  read.table(url("http://www.stat.umn.edu/geyer/3701/data/q1p4.txt"),header = TRUE)
+func4(d)
+func5(d)
+```
+Func6 will run through any given data and check to see if the data set is viable to the function's given contraints.
+```{r}
+library(VaradhanAnkithaTools)
+d<-  read.table(url("http://www.stat.umn.edu/geyer/3701/data/q1p4.txt"),header = TRUE)
+func6(d)
+```
+Func7 will compute the maximum liklihood of any user given distribution for data x and return the scalar results. 
+```{r}
+library(VaradhanAnkithaTools)
+x1 = rgamma(100,3)
+func1 = function(theta, x) dgamma(x, shape = theta, log = TRUE)
+result7_gamma <- func7(x1,func1,c(0,3))
+```
+matx will compute the scalar result of (x^T)*(A^(-1))*x.
+```{r}
+library(VaradhanAnkithaTools)
+load(url("http://www.stat.umn.edu/geyer/3701/data/q2p1.rda"))
+matx(a, x)
+```
+By using std, user can compute the standardized result of a matrix by it's column
+```{r}
+library(VaradhanAnkithaTools)
+load(url("http://www.stat.umn.edu/geyer/3701/data/q2p1.rda"))
+std(a)
+```
